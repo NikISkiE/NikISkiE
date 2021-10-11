@@ -1,0 +1,55 @@
+body{
+	background-color:gray;
+	height:100%;
+	width:100%;
+	margin:auto;
+}
+
+#nl{
+	width:calc(100% - 200px);
+	height:150px;
+	float:left;
+	text-align:center;
+}
+
+#nr{
+	width:200px;
+	height:150px;
+	float:left;
+}
+
+#ml{
+	width:40%;
+	height:400px;
+	float:left;
+}
+
+#mr{
+	width:60%;
+	height:400px;
+	float:left;
+}
+
+#f{
+	height:150px;
+	width:100%;
+	float:left;
+}
+
+#f1{
+	border:2px red dashed;
+	background-color:yellow;
+}
+#f2{
+	border:2px red dashed;
+	background-color:green;
+}
+
+input{
+	float:right;
+	clear:both;
+}
+
+#hour{
+	float:right;
+}
