@@ -15,7 +15,7 @@
 					<table>
 						<tr>
 							<td>Imie:</td>
-							<td><input type="text" name="name"/></td>
+							<td><input type="text" name="imie"/></td>
 						</tr>
 						<tr>
 							<td>Nazwisko:</td>
@@ -47,8 +47,9 @@
 				<center><button type="submit">Wyślij</button></center>
 			</form>
 			<?php
-			$dane = $_POST['name'].", ".$_POST['surname'].", ".$_POST['age'].", ".$_POST['city'].", ".$_POST['pcode'].", ".$_POST['street'];
-			if($_POST['name']!=""&& $_POST['surname']!=""&& $_POST['age']!=""&& $_POST['city']!=""&& $_POST['pcode']!=""&& $_POST['street']){
+			if(isset($_POST['imie'],$_POST['surname'],$_POST['age'],$_POST['city'],$_POST['pcode'],$_POST['street'])){
+			if($_POST['imie']!=""&& $_POST['surname']!=""&& $_POST['age']!=""&& $_POST['city']!=""&& $_POST['pcode']!=""&& $_POST['street']){
+				$dane = $_POST['imie'].", ".$_POST['surname'].", ".$_POST['age'].", ".$_POST['city'].", ".$_POST['pcode'].", ".$_POST['street'];
 				$plik ='zamowienia\\zamowienie'.date('H-i-s').'.txt';
 				$uchwyt = fopen($plik,'a');
 				fwrite($uchwyt,$dane);
@@ -56,7 +57,7 @@
 			}else{
 				echo "<center>Podaj Wartość</center>";
 			}
-			
+			}
 			
 			?>
 		</section>
@@ -65,9 +66,13 @@
 				<legend>Zawartosc Foldera zamowienia</legend>
 			<?php
 			$dir='zamowienia';
+			if($dir!=""){
 			$files=scandir($dir,1);
-			for($i=0;$i<5;$i++){
-			echo $files[$i].'<br />';
+			foreach($files as $file){
+			echo $file.'<br />';
+			};
+			}else{
+				echo "Zatwierdz formularz";
 			}
 			?>
 			</fieldset>
