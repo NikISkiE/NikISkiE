@@ -23,7 +23,7 @@
 						</tr>
 						<tr>
 							<td>Wiek:</td>
-							<td><input type="text" name="age"/></td>
+							<td><input type="number" name="age"/></td>
 						</tr>
 					</table>
 				</fieldset>
@@ -36,7 +36,7 @@
 						</tr>
 						<tr>
 							<td>Kod. Poczt:</td>
-							<td><input type="text" name="pcode"/></td>
+							<td><input type="number" name="pcode" pattern="[0-9]{2}[-][0-9]{3}" /></td>
 						</tr>
 						<tr>
 							<td>Ulica:</td>
@@ -49,16 +49,16 @@
 			<?php
 			if(isset($_POST['imie'],$_POST['surname'],$_POST['age'],$_POST['city'],$_POST['pcode'],$_POST['street'])){
 			if($_POST['imie']!=""&& $_POST['surname']!=""&& $_POST['age']!=""&& $_POST['city']!=""&& $_POST['pcode']!=""&& $_POST['street']){
-				$dane = $_POST['imie'].", ".$_POST['surname'].", ".$_POST['age'].", ".$_POST['city'].", ".$_POST['pcode'].", ".$_POST['street'];
+				$dane = ucfirst(strtolower($_POST['imie'])).", ".ucfirst(strtolower($_POST['surname'])).", ".$_POST['age'].", ".ucfirst(strtolower($_POST['city'])).", ".$_POST['pcode'].", ".ucfirst(strtolower($_POST['street']));
 				$plik ='zamowienia\\zamowienie'.date('H-i-s').'.txt';
 				$uchwyt = fopen($plik,'a');
 				fwrite($uchwyt,$dane);
 				fclose($uchwyt);
+				header('Location: index.php');
 			}else{
 				echo "<center>Podaj Wartość</center>";
 			}
 			}
-			
 			?>
 		</section>
 		<section id="mr">
@@ -66,11 +66,14 @@
 				<legend>Zawartosc Foldera zamowienia</legend>
 			<?php
 			$dir='zamowienia';
-			if($dir!=""){
-			$files=scandir($dir,1);
+			if(!file_exists($dir)){
+				mkdir($dir);
+			}else if($dir!=""){
+			$allFiles=scandir($dir,1);
+			$files = array_diff($allFiles, array('.', '..'));
 			foreach($files as $file){
 			echo $file.'<br />';
-			};
+			}
 			}else{
 				echo "Zatwierdz formularz";
 			}
